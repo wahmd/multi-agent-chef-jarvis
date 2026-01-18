@@ -1,0 +1,26 @@
+"""Configuration template for the meal prep system.
+
+Copy this file to config.py and set your API key.
+NEVER commit config.py to version control!
+"""
+
+import os
+
+from agents import set_default_openai_key
+
+# Option to override the default model for all agents
+MODEL_OVERRIDE = os.getenv("MEAL_PREP_MODEL")  # e.g., "gpt-4.1-mini" or None
+
+# Option 1: Set your API key directly here (uncomment and add your key)
+# ⚠️ WARNING: This will expose your key in the file. Only use for local development!
+# API_KEY = "sk-your-api-key-here"
+
+# Option 2: Read from environment variable (RECOMMENDED - default)
+API_KEY = os.getenv("OPENAI_API_KEY")
+
+# Set the API key if it's available
+if API_KEY:
+    set_default_openai_key(API_KEY, use_for_tracing=True)
+    print("✓ API key configured")
+else:
+    print("⚠️  Warning: OPENAI_API_KEY not set. Set it in config.py or as an environment variable.")
